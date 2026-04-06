@@ -34,9 +34,6 @@ class Instance:
 
 
 
-    def set_best_known(self, best_known):
-        self.best_known = best_known
-
     def distance(self, i, j):
         x1, y1 = self.coords[i]
         x2, y2 = self.coords[j]
