@@ -47,8 +47,12 @@ def main():
                 check=True
             )
 
+    print("\nExecutando análise...")
+    subprocess.run(["python", "analise.py"], check=True)
+
     print("\nBenchmark finalizado.")
     print(f"Resultados salvos em: output/{OUTPUT_FILE}")
+    print("Análises salvas em: output/analytics/")
 
 
 if __name__ == "__main__":

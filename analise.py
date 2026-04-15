@@ -91,12 +91,31 @@ def save_confidence_interval_table(df):
     print("\nIntervalo de confiança de 95%:")
     print(ci_df.to_string(index=False))
 
+def save_t_test(df):
+    pivot = df.pivot(index="INSTANCE", columns="METHOD", values="GAP").dropna()
+
+    t_stat, p_value = stats.ttest_rel(pivot["NN"], pivot["CW"])
+
+    result_df = pd.DataFrame([{
+        "GROUP_1": "NN",
+        "GROUP_2": "CW",
+        "TEST": "paired_t_test",
+        "T_STATISTIC": round(t_stat, 6),
+        "P_VALUE": round(p_value, 6),
+        "SIGNIFICANT_5_PERCENT": "YES" if p_value < 0.05 else "NO"
+    }])
+
+    result_df.to_csv(os.path.join(OUTPUT_DIR, "teste_t_gap.csv"), index=False)
+
+    print("\nTeste t pareado para GAP entre NN e CW:")
+    print(result_df.to_string(index=False))
 
 def main():
     df = load_data()
     save_runtime_bar_chart(df)
     save_gap_boxplot(df)
     save_confidence_interval_table(df)
+    save_t_test(df)
     print("\nArquivos gerados em output/analytics/")
 
 
