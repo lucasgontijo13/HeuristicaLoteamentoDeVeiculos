@@ -39,7 +39,7 @@ def main():
 
     end_time = time.perf_counter()
 
-    cost = instance.calculate_cost(routes)
+    cost = instance.calculate_penalized_cost(routes)
     runtime = end_time - start_time
     gap = instance.calculate_gap(cost)
 
